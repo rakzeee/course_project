@@ -1,0 +1,46 @@
+body{
+	font:  bold 10pt Tahoma;
+}
+
+.file input{
+	width: 100%;
+}
+
+.file:hover{
+	border: 0;
+}
+
+.buttons input{
+	cursor: pointer;
+	margin-top:15px;
+	width: 15%;
+	margin-bottom: 5%;
+	margin-right: 2%;
+	border-radius: 0;
+	border: 1px solid #D3D3D3;
+	background-color: #D3D3D3;
+}
+
+.buttons input:hover{
+	border:1px solid #000000;
+}
+	
+table{
+	width: 100%;
+	border-spacing:	5px;
+}
+
+td input{
+	width: 90%;
+}
+select{
+	height: 30px;
+	cursor: pointer;
+}
+select: hover{
+	border:1px ridge #000000;
+	
+}
+	
+
+	

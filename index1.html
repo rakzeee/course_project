@@ -8,7 +8,9 @@
 		<link href="Style.css" rel="stylesheet" type="text/css"/>
 	</head>
 	<body onload="setMax()">
-		<h1>Section 1: General part</h1>
+		<div class = "head">
+			<h1>Section 1: General part</h1>
+		</div>
 		<form action="/form" enctype="text/plain" method="post">
 			<div>
 				<h2>Name of unit</h2>
@@ -32,9 +34,8 @@
 				<h2>End of reporting period</h2>
 				<input id="endDate" type="date" name="endDate">
 			</div>
-			<div>
-				<input id="continue" type="button" name="continue" value="ДАЛЕЕ">
-			</div>	
+			
 		</form>
+		<input class="continue" type="button" name="continue" value="NEXT">
 	</body>
 </html>

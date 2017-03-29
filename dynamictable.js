@@ -42,7 +42,7 @@ function addRow(id) {
     	row.appendChild(td3);
 		td1.innerHTML = '<input type="text" name="studentName['+rowCount+']">';
 		td2.innerHTML = '<input type="text" name="title['+rowCount+']">';
-		td3.innerHTML = '<input type="file" name="plan['+rowCount+']">';
+		td3.innerHTML = '<input class="file" type="file" name="plan['+rowCount+']">';
 	}
 	else {
 	    var td1 = d.createElement("td");

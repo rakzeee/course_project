@@ -3,20 +3,22 @@ body{
 	margin-right:25%; 
 	width: 50%; 
 	text-align: center; 
-	background-image: url(images/background.jpg); 
+	background-image: url(images/background.jpg);
+	background-attachment: fixed;	
+	background-size: cover;
 	opacity: 0.95; 
-	font:  bold 16pt Tahoma;
+	font:  bold 10pt Tahoma;
 	
 	
 }
 
-h1{
+.head{
 	border: 2px ridge #DCDCDC;
 	background-color: #F5F5DC;
 	opacity: 0.95;
 	padding: 15px;
 	margin-bottom:0;
-	font: bold 30pt Tahoma;
+	font: bold 15pt Tahoma;
 }
 
 form{
@@ -30,9 +32,9 @@ h2{
 }
 
 input{
+	margin-top: 1%;
 	padding: 5px;
 	width: 50%;
-	font:  bold 10pt Tahoma;
 	
 }
 #startDate{
@@ -41,25 +43,22 @@ input{
 }
 
 #endDate{
-	margin-bottom:20px;
+	
 	width:20%;
 	cursor: pointer;
 }
 
-p{
-	margin-top:0;
-	margin-bottom: 0;
-	font:  14pt Tahoma;
-}
 input:hover{
-	border: 2px ridge #A52A2A;
+	border: 2px ridge #000000;
 }
 
-#continue{
+.continue{
+	margin-top:10px;
 	cursor: pointer;
 	background-color: #DCDCDC;
 	width: 10%;
 	margin-bottom:15px;
+	margin-top:0;
 }
 
 

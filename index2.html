@@ -4,24 +4,28 @@
 		<meta charset="utf-8">
 		<title>Innopolis University annual report</title>
 		<script type="text/javascript" src="dynamictable.js"></script>
+		<link href="Style.css" rel="stylesheet" type="text/css"/>
+		<link href="Style2.css" rel="stylesheet" type="text/css"/>
 	</head>
 	<body>
-		<h1>Section 2: Teaching part</h1>
+		<div class = "head">
+			<h1>Section 2: Teaching part</h1>
 		<p>This section covers the educational activities of your unit.</p>
+		</div>
 		<form action="/form" enctype="text/plain" method="post">
 			<div>
 				<h2>Courses taught </h2>
 				<p>Numbered list. Include all courses taught or co-taught by members of your unit.</p>
 				<table id="coursesTable">
 					<tr>
-						<th>Name</th>
+						<th >Name</th>
 						<th>Semester</th>
 						<th>Level</th>
 						<th>Approximate number of students</th>
 					</tr>
-					<tr>
-					    <td><input type="text" name="name[0]"></td>
-						<td>
+					<tr >
+					    <td ><input type="text" name="name[0]"></td>
+						<td >
 							<select name="semester[0]">
 							  <option>Spring</option>
 							  <option>Fall</option>
@@ -37,8 +41,10 @@
 					    <td><input type="number" name="number[0]"></td>
 					</tr>
 				</table>
-				<input type="button" onclick="addRow('coursesTable')" value="Add field"/>
-				<input type="button" onclick="deleteRow('coursesTable')" value="Delete field"/>
+				<div class="buttons">
+					<input type="button" onclick="addRow('coursesTable')" value="Add field"/>
+					<input type="button" onclick="deleteRow('coursesTable')" value="Delete field"/>
+				</div>
 			</div>
 			<div>
 				<h2>Examinations</h2>
@@ -67,8 +73,10 @@
 					    <td><input type="number" name="number[0]"></td>
 					</tr>
 				</table>
-				<input type="button" onclick="addRow('examinationTable')" value="Add field"/>
-				<input type="button" onclick="deleteRow('examinationTable')" value="Delete field"/>
+				<div class="buttons">
+					<input type="button" onclick="addRow('examinationTable')" value="Add field"/>
+					<input type="button" onclick="deleteRow('examinationTable')" value="Delete field"/>
+				</div>
 			</div>
 			<div>
 				<h2>Students supervised</h2>
@@ -83,8 +91,10 @@
 					    <td><input type="text" name="work[0]"></td>
 					</tr>
 				</table>
-				<input type="button" onclick="addRow('studentWorkTable')" value="Add field"/>
-				<input type="button" onclick="deleteRow('studentWorkTable')" value="Delete field"/>
+				<div class="buttons">
+					<input type="button" onclick="addRow('studentWorkTable')" value="Add field"/>
+					<input type="button" onclick="deleteRow('studentWorkTable')" value="Delete field"/>
+				</div>
 			</div>
 			<div>
 				<h2>Completed student reports</h2>
@@ -98,11 +108,13 @@
 					<tr>
 					    <td><input type="text" name="studentName[0]"></td>
 					    <td><input type="text" name="title[0]"></td>
-						<td><input type="file" name="plan[0]"></td>
+						<td><input class="file" type="file" name="plan[0]"></td>
 					</tr>
 				</table>
-				<input type="button" onclick="addRow('studentReportsTable')" value="Add field"/>
-				<input type="button" onclick="deleteRow('studentReportsTable')" value="Delete field"/>
+				<div class="buttons">
+					<input type="button" onclick="addRow('studentReportsTable')" value="Add field"/>
+					<input type="button" onclick="deleteRow('studentReportsTable')" value="Delete field"/>
+				</div>
 			</div>
 			<div>
 				<h2>Completed PhD theses</h2>
@@ -125,10 +137,12 @@
 					    <td><input type="text" name="title[0]"></td>
 					</tr>
 				</table>
-				<input type="button" onclick="addRow('phdThesesTable')" value="Add field"/>
-				<input type="button" onclick="deleteRow('phdThesesTable')" value="Delete field"/>
+				<div class="buttons">
+					<input type="button" onclick="addRow('phdThesesTable')" value="Add field"/>
+					<input type="button" onclick="deleteRow('phdThesesTable')" value="Delete field"/>
+				</div>
 			</div>
 		</form>
-		<input type="button" name="nextButton" value="next">
+		<input class="continue" type="button" name="continue" value="NEXT">
 	</body>
 </html>
