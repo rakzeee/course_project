@@ -68,9 +68,10 @@ function addRow(id) {
 function deleteRow(id) {	
 	var table = document.getElementById(id);
 			var rowCount = table.rows.length;
-			if(rowCount > 2) {
+			var k = 2;
+			if (id == 'phdThesesTable')
+				k = 1;
+			if(rowCount > k) {
 				table.deleteRow(rowCount-1);
-				
 			}
-
 }
