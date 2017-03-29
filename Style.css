@@ -1,0 +1,72 @@
+body{
+	margin-left:25%; 
+	margin-right:25%; 
+	width: 50%; 
+	text-align: center; 
+	background-image: url(images/background.jpg); 
+	opacity: 0.95; 
+	font:  bold 16pt Tahoma;
+	
+	
+}
+
+h1{
+	border: 2px ridge #DCDCDC;
+	background-color: #F5F5DC;
+	opacity: 0.95;
+	padding: 15px;
+	margin-bottom:0;
+	font: bold 30pt Tahoma;
+}
+
+form{
+	border: 2px ridge #DCDCDC;
+	background-color: #FFFAFA;
+	padding: 10px;
+	border-top:  5px ridge red;
+}
+h2{
+	margin-bottom: 5px;
+}
+
+input{
+	padding: 5px;
+	width: 50%;
+	font:  bold 10pt Tahoma;
+	
+}
+#startDate{
+	width:20%;
+	cursor: pointer;
+}
+
+#endDate{
+	margin-bottom:20px;
+	width:20%;
+	cursor: pointer;
+}
+
+p{
+	margin-top:0;
+	margin-bottom: 0;
+	font:  14pt Tahoma;
+}
+input:hover{
+	border: 2px ridge #A52A2A;
+}
+
+#continue{
+	cursor: pointer;
+	background-color: #DCDCDC;
+	width: 10%;
+	margin-bottom:15px;
+}
+
+
+
+
+
+
+
+
+	
