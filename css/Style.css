@@ -11,7 +11,12 @@ body{
 	
 	
 }
-
+p{
+	position: relative; 
+    left: 25px;
+	margin-right:10%;
+	text-align: left ;
+}
 .head{
 	border: 2px ridge #DCDCDC;
 	background-color: #F5F5DC;
@@ -34,7 +39,8 @@ h2{
 input{
 	margin-top: 1%;
 	padding: 5px;
-	width: 50%;
+	width: 90%;
+	
 	
 }
 
