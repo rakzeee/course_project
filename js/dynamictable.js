@@ -39,8 +39,8 @@ function addRow(id) {
 		td1.innerHTML = '<input type="text" name="title['+rowCount+']" required>';
 		td2.innerHTML = '<input type="text" name="universityPersonnel['+rowCount+']" required>';
 		td3.innerHTML = '<input type="text" name="externalPersonnel['+rowCount+']">';
-		td4.innerHTML = '<input type="date" name="startDate['+rowCount+']" required>';
-		td5.innerHTML = '<input type="date" name="endDate['+rowCount+']" required>';
+		td4.innerHTML = '<input class="date" type="date" name="startDate['+rowCount+']" required>';
+		td5.innerHTML = '<input class="date" type="date" name="endDate['+rowCount+']" required>';
 		td6.innerHTML = '<input type="text" name="financing['+rowCount+']" required>';
 	}
  	else if (id == 'grantsTable') {

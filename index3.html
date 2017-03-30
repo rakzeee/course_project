@@ -4,9 +4,11 @@
 		<meta charset="utf-8">
 		<title>Innopolis University annual report</title>
 		<script type="text/javascript" src="js/dynamictable.js"></script>
+		<link href="css/Style.css" rel="stylesheet" type="text/css"/>
+		<link href="css/Style2.css" rel="stylesheet" type="text/css"/>
 	</head>
 	<body>
-		<div>
+		<div class = "head">
 			<h1>Section 3: Research part</h1>
 			<p>This section covers research and publication activities of your unit.</p>
 		</div>
@@ -35,7 +37,7 @@
 						<td><input type="number" name="amount[0]" required></td>
 					</tr>
 				</table>
-				<div>
+				<div class="buttons">
 					<input type="button" onclick="addRow('grantsTable')" value="Add field"/>
 					<input type="button" onclick="deleteRow('grantsTable')" value="Delete field"/>
 				</div>
@@ -56,12 +58,12 @@
 						<td><input type="text" name="title[0]" required></td>
 						<td><input type="text" name="universityPersonnel[0]" required></td>
 						<td><input type="text" name="externalPersonnel[0]"></td>
-						<td><input type="date" name="startDate[0]" required></td>
-						<td><input type="date" name="endDate[0]" required></td>
+						<td><input class="date" type="date" name="startDate[0]" required></td>
+						<td><input class="date" type="date" name="endDate[0]" required></td>
 						<td><input type="text" name="financing[0]" required></td>
 					</tr>
 				</table>
-				<div>
+				<div class="buttons">
 					<input type="button" onclick="addRow('researchProjectsTable')" value="Add field"/>
 					<input type="button" onclick="deleteRow('researchProjectsTable')" value="Delete field"/>
 				</div>
@@ -83,7 +85,7 @@
 						<td><input type="text" name="collaborationNature[0]" required></td>
 					</tr>
 				</table>
-				<div>
+				<div class="buttons">
 					<input type="button" onclick="addRow('researchCollaborationsTable')" value="Add field"/>
 					<input type="button" onclick="deleteRow('researchCollaborationsTable')" value="Delete field"/>
 				</div>
@@ -99,7 +101,7 @@
 						<td><input type="text" name="publication[0]" required></td>
 					</tr>
 				</table>
-				<div>
+				<div class="buttons">
 					<input type="button" onclick="addRow('conferencePublicationTable')" value="Add field"/>
 					<input type="button" onclick="deleteRow('conferencePublicationTable')" value="Delete field"/>
 				</div>
@@ -115,11 +117,12 @@
 						<td><input type="text" name="publication[0]" required></td>
 					</tr>
 				</table>
-				<div>
+				<div class="buttons">
 					<input type="button" onclick="addRow('journalPublicationTable')" value="Add field"/>
 					<input type="button" onclick="deleteRow('journalPublicationTable')" value="Delete field"/>
 				</div>
 			</div>
 		</form>
+		<input class="continue" type="button" name="continue" value="NEXT">
 	</body>
 </html>

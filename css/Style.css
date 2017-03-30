@@ -3,11 +3,11 @@ body{
 	margin-right:25%; 
 	width: 50%; 
 	text-align: center; 
-	background-image: url(images/background.jpg);
+	background-image: url(../images/background.jpg);
 	background-attachment: fixed;	
 	background-size: cover;
 	opacity: 0.95; 
-	font:  bold 10pt Tahoma;
+	font:  bold 10pt -apple-system,BlinkMacSystemFont,Roboto,Open Sans,Helvetica Neue,sans-serif;
 	
 	
 }
@@ -18,7 +18,7 @@ body{
 	opacity: 0.95;
 	padding: 15px;
 	margin-bottom:0;
-	font: bold 15pt Tahoma;
+	font: bold 15pt -apple-system,BlinkMacSystemFont,Roboto,Open Sans,Helvetica Neue,sans-serif;
 }
 
 form{
@@ -37,16 +37,15 @@ input{
 	width: 50%;
 	
 }
-#startDate{
-	width:20%;
+
+.date{
+	width:125px;
+	height: 15px;
 	cursor: pointer;
+	margin-right: -5px;
 }
 
-#endDate{
 	
-	width:20%;
-	cursor: pointer;
-}
 
 input:hover{
 	border: 2px ridge #000000;
