@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Innopolis University annual report</title>
+		<script type="text/javascript" src="dynamictable.js"></script>
+	</head>
+	<body>
+		<div>
+			<h1>Section 3: Research part</h1>
+			<p>This section covers research and publication activities of your unit.</p>
+		</div>
+		<form action="/form" enctype="text/plain" method="post">
+			<div>
+				<h2>Grants</h2>
+				<p>Numbered list. For each item, list: title of project; granting agency; period covered by grant; whether continuation of other grant; amount.</p>
+				<table id="grantsTable">
+					<tr>
+						<th>Title of project</th>
+						<th>Granting agency</th>
+						<th>Period</th>
+						<th>Amount</th>
+					</tr>
+					<tr>
+						<td><input type="text" name="title[0]" required></td>
+						<td><input type="text" name="grantingAgency[0]" required></td>
+						<td>
+							<select name="period[0]">
+								<option>1 month</option>
+								<option>3 month</option>
+								<option>6 month</option>
+								<option>1 year</option>
+							</select>
+						</td>
+						<td><input type="number" name="amount[0]" required></td>
+					</tr>
+				</table>
+				<div>
+					<input type="button" onclick="addRow('grantsTable')" value="Add field"/>
+					<input type="button" onclick="deleteRow('grantsTable')" value="Delete field"/>
+				</div>
+			</div>
+			<div>
+				<h2>Research projects</h2>
+				<p>Numbered list. Include all significant research themes in which members of your unit are involved, whether or not supported by a grant. For each item, list: title of project; Innopolis University personnel involved; external personnel involved if any; start date of project; expected end date; sources of financing.</p>
+				<table id="researchProjectsTable">
+					<tr>
+						<th>Title of project</th>
+						<th>Innopolis University personnel</th>
+						<th>External personnel involved </th>
+						<th>Start date</th>
+						<th>End date</th>
+						<th>Financing</th>
+					</tr>
+					<tr>
+						<td><input type="text" name="title[0]" required></td>
+						<td><input type="text" name="universityPersonnel[0]" required></td>
+						<td><input type="text" name="externalPersonnel[0]"></td>
+						<td><input type="date" name="startDate[0]" required></td>
+						<td><input type="date" name="endDate[0]" required></td>
+						<td><input type="text" name="financing[0]" required></td>
+					</tr>
+				</table>
+				<div>
+					<input type="button" onclick="addRow('researchProjectsTable')" value="Add field"/>
+					<input type="button" onclick="deleteRow('researchProjectsTable')" value="Delete field"/>
+				</div>
+			</div>
+			<div>
+				<h2>Research collaborations</h2>
+				<p>Numbered list. For each item, indicate: country of institution; name of institution (and department or unit if relevant); name of principal contact and any other important contacts; nature of collaboration.</p>
+				<table id="researchCollaborationsTable">
+					<tr>
+						<th>Country</th>
+						<th>Institution name</th>
+						<th>Contacts</th>
+						<th>Collaboration nature</th>
+					</tr>
+					<tr>
+						<td><input type="text" name="country[0]" required></td>
+						<td><input type="text" name="institutionName[0]" required></td>
+						<td><input type="text" name="contacts[0]" required></td>
+						<td><input type="text" name="collaborationNature[0]" required></td>
+					</tr>
+				</table>
+				<div>
+					<input type="button" onclick="addRow('researchCollaborationsTable')" value="Add field"/>
+					<input type="button" onclick="deleteRow('researchCollaborationsTable')" value="Delete field"/>
+				</div>
+			</div>
+			<div>
+				<h2>Conference publications</h2>
+				<p>Numbered list. Indicate all publications of which members of the unit are authors or coauthors. Use standard style for scientific bibliography entries.</p>
+				<table id="conferencePublicationTable">
+					<tr>
+						<th>Publication</th>
+					</tr>
+					<tr>
+						<td><input type="text" name="publication[0]" required></td>
+					</tr>
+				</table>
+				<div>
+					<input type="button" onclick="addRow('conferencePublicationTable')" value="Add field"/>
+					<input type="button" onclick="deleteRow('conferencePublicationTable')" value="Delete field"/>
+				</div>
+			</div>
+			<div>
+				<h2>Journal publications</h2>
+				<p>Numbered list. Indicate all publications of which members of the unit are authors or coauthors. Use standard style for scientific bibliography entries.<p>
+				<table id="journalPublicationTable">
+					<tr>
+						<th>Publication</th>
+					</tr>
+					<tr>
+						<td><input type="text" name="publication[0]" required></td>
+					</tr>
+				</table>
+				<div>
+					<input type="button" onclick="addRow('journalPublicationTable')" value="Add field"/>
+					<input type="button" onclick="deleteRow('journalPublicationTable')" value="Delete field"/>
+				</div>
+			</div>
+		</form>
+	</body>
+</html>
