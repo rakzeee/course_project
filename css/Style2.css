@@ -27,8 +27,9 @@ table{
 	border-spacing:	5px;
 	background-color: #D3D3D3;
 	border-radius: 5px;
-	padding:5px;
 	
+	padding-right: 15px;
+	padding-left: 10px;
 }
 
 td select{
