@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Innopolis University annual report</title>
+		<script type="text/javascript" src="js/dynamictable.js"></script>
+		<link href="css/Style.css" rel="stylesheet" type="text/css"/>
+		<link href="css/Style2.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<div id="page" name="3">
+			<div class = "head">
+				<h1>Section 3: Research part</h1>
+				<p>This section covers research and publication activities of your unit.</p>
+			</div>
+			<div>
+				<div>
+					<h2>Grants</h2>
+					<p>For each item, indicate: title of project; granting agency; period covered by grant; whether continuation of other grant; amount.</p>
+					<table id="grantsTable">
+						<tr>
+							<th>Title of project</th>
+							<th>Granting agency</th>
+							<th>Period</th>
+							<th>Amount</th>
+						</tr>
+						<tr>
+							<td><input class="toForm" type="text" name="titleGrants[0]" required="true" form="formSubmit"></td>
+							<td><input class="toForm" type="text" name="grantingAgencyGrants[0]" required="true" form="formSubmit"></td>
+							<td>
+								<select class="toForm" name="periodGrants[0]" required="true" form="formSubmit">
+									<option>1 month</option>
+									<option>3 month</option>
+									<option>6 month</option>
+									<option>1 year</option>
+								</select>
+							</td>
+							<td><input class="toForm" type="number" name="amountGrants[0]" required="true" form="formSubmit"></td>
+						</tr>
+					</table>
+					<div class="buttons">
+						<input type="button" onclick="addRow('grantsTable')" value="Add field"/>
+						<input type="button" onclick="deleteRow('grantsTable')" value="Delete field"/>
+					</div>
+				</div>
+				<div>
+					<h2>Research projects</h2>
+					<p>Include all significant research themes in which members of your unit are involved, whether or not supported by a grant. For each item, list: title of project; Innopolis University personnel involved; external personnel involved if any; start date of project; expected end date; sources of financing.</p>
+					<table id="researchProjectsTable">
+						<tr>
+							<th>Title of project</th>
+							<th>Innopolis University personnel involved</th>
+							<th>External personnel involved </th>
+							<th>Start date</th>
+							<th>End date</th>
+							<th>Financing</th>
+						</tr>
+						<tr>
+							<td><input class="toForm" type="text" name="titleRP[0]" required="true" form="formSubmit"></td>
+							<td><input class="toForm" type="text" name="universityPersonnelRP[0]" required="true" form="formSubmit"></td>
+							<td><input class="toForm" type="text" name="externalPersonnelRP[0]" form="formSubmit"></td>
+							<td><input class="toForm date" type="date" name="startDateRP[0]" required="true" form="formSubmit"></td>
+							<td><input class="toForm date" type="date" name="endDateRP[0]" required="true" form="formSubmit"></td>
+							<td><input class="toForm" type="text" name="financingRP[0]" required="true" form="formSubmit"></td>
+						</tr>
+					</table>
+					<div class="buttons">
+						<input type="button" onclick="addRow('researchProjectsTable')" value="Add field"/>
+						<input type="button" onclick="deleteRow('researchProjectsTable')" value="Delete field"/>
+					</div>
+				</div>
+				<div>
+					<h2>Research collaborations</h2>
+					<p>For each item, indicate: country of institution; name of institution (and department or unit if relevant); name of principal contact and any other important contacts; nature of collaboration.</p>
+					<table id="researchCollaborationsTable">
+						<tr>
+							<th>Country</th>
+							<th>Institution name</th>
+							<th>Contacts</th>
+							<th>Collaboration nature</th>
+						</tr>
+						<tr>
+							<td><input class="toForm" type="text" name="countryRC[0]" required="true" form="formSubmit"></td>
+							<td><input class="toForm" type="text" name="institutionNameRC[0]" required="true" form="formSubmit"></td>
+							<td><input class="toForm" type="text" name="contactsRC[0]" required="true" form="formSubmit"></td>
+							<td><input class="toForm" type="text" name="collaborationNatureRC[0]" required="true" form="formSubmit"></td>
+						</tr>
+					</table>
+					<div class="buttons">
+						<input type="button" onclick="addRow('researchCollaborationsTable')" value="Add field"/>
+						<input type="button" onclick="deleteRow('researchCollaborationsTable')" value="Delete field"/>
+					</div>
+				</div>
+				<div>
+					<h2>Conference publications</h2>
+					<p>Indicate all publications of which members of the unit are authors or coauthors. Use standard style for scientific bibliography entries.</p>
+					<table id="conferencePublicationTable">
+						<tr>
+							<th>Publication</th>
+						</tr>
+						<tr>
+							<td><input class="toForm" type="text" name="conferencePublication[0]" required="true" form="formSubmit"></td>
+						</tr>
+					</table>
+					<div class="buttons">
+						<input type="button" onclick="addRow('conferencePublicationTable')" value="Add field"/>
+						<input type="button" onclick="deleteRow('conferencePublicationTable')" value="Delete field"/>
+					</div>
+				</div>
+				<div>
+					<h2>Journal publications</h2>
+					<p>Indicate all publications of which members of the unit are authors or coauthors. Use standard style for scientific bibliography entries.<p>
+					<table id="journalPublicationTable">
+						<tr>
+							<th>Publication</th>
+						</tr>
+						<tr>
+							<td><input class="toForm" type="text" name="journalPublication[0]" required="true" form="formSubmit"></td>
+						</tr>
+					</table>
+					<div class="buttons">
+						<input type="button" onclick="addRow('journalPublicationTable')" value="Add field"/>
+						<input type="button" onclick="deleteRow('journalPublicationTable')" value="Delete field"/>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
