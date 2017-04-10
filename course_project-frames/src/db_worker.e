@@ -59,24 +59,29 @@ feature --main features
 		create temp.make_filled ("", 1, 1)
 		cursor := db_query_statement.execute_new
 		cursor.start
-		from
-			i := 1
-		until
-			cursor.after
-		loop
+		Result := Void
+		if cursor.item.is_null (1) then
+
+		else
 			from
-				j := 1
+				i := 1
 			until
-				j > cursor.item.count.as_integer_16
+				cursor.after
 			loop
-				temp.resize_with_default ("", i,j)
-				temp.put (cursor.item.string_value (j.as_natural_32), i, j)
-				j := j + 1
+				from
+					j := 1
+				until
+					j > cursor.item.count.as_integer_16
+				loop
+					temp.resize_with_default ("", i,j)
+					temp.put (cursor.item.string_value (j.as_natural_32), i, j)
+					j := j + 1
+				end
+				cursor.forth
+				i := i + 1
 			end
-			cursor.forth
-			i := i + 1
+			Result := temp
 		end
-		Result := temp
 	end
 
 	execute_selection_full_table(table : STRING): ARRAY2[STRING]
@@ -98,24 +103,29 @@ feature --main features
 		create temp.make_filled ("", 1, 1)
 		cursor := db_query_statement.execute_new
 		cursor.start
-		from
-			i := 1
-		until
-			cursor.after
-		loop
+		Result := Void
+		if cursor.item.is_null (1) then
+
+		else
 			from
-				j := 1
+				i := 1
 			until
-				j > cursor.item.count.as_integer_16
+				cursor.after
 			loop
-				temp.resize_with_default ("", i,j)
-				temp.put (cursor.item.string_value (j.as_natural_32), i, j)
-				j := j + 1
+				from
+					j := 1
+				until
+					j > cursor.item.count.as_integer_16
+				loop
+					temp.resize_with_default ("", i,j)
+					temp.put (cursor.item.string_value (j.as_natural_32), i, j)
+					j := j + 1
+				end
+				cursor.forth
+				i := i + 1
 			end
-			cursor.forth
-			i := i + 1
+			Result := temp
 		end
-		Result := temp
 	end
 
 	execute_selection_one_column(table, column : STRING) : ARRAY2[STRING]
@@ -137,52 +147,31 @@ feature --main features
 		create temp.make_filled ("", 1, 1)
 		cursor := db_query_statement.execute_new
 		cursor.start
-		from
-			i := 1
-		until
-			cursor.after
-		loop
-			from
-				j := 1
-			until
-				j > cursor.item.count.as_integer_16
-			loop
-				temp.resize_with_default ("", i,j)
-				temp.put (cursor.item.string_value (j.as_natural_32), i, j)
-				j := j + 1
-			end
-			cursor.forth
-			i := i + 1
-		end
-		Result := temp
-	end
+		Result := Void
+		if cursor.item.is_null (1) then
 
-	publications(year : INTEGER) : QUERY_TABLE
-	local
-		query : STRING
-		file : PLAIN_TEXT_FILE
-		tb : QUERY_TABLE
-	do
-		create Result.make_empty
-		Result.names.grow (4)
-		Result.names.put ("Number", 1)
-		Result.names.put ("Name Of Unit", 1)
-		Result.names.put ("Name of head of unit", 2)
-		Result.names.put ("Publication", 3)
-		Result.names.put ("Start of reporting period", 4)
-		create file.make_open_read ("jour_publications.sql")
-		file.read_stream (file.count)
-		query := file.last_string
-		file.close
-		query := query + year.out + "-01-01%" AND startOfRepPeriod < %"" + (year+1).out + "-01-01%") UNION ALL "
-		create file.make_open_read ("conf_publications.sql")
-		file.read_stream (file.count)
-		query := query + file.last_string
-		file.close
-		query := query + year.out + "-01-01%" AND startOfRepPeriod < %"" + (year+1).out + "-01-01%");"
-		Result.set_data (execute_selection(query))
-	ensure
-		not (Result.names.is_empty or Result.data.is_empty)
+		else
+			from
+				i := 1
+			until
+				cursor.after
+			loop
+				from
+					j := 1
+				until
+					j > cursor.item.count.as_integer_16
+				loop
+					temp.resize_with_default ("", i,j)
+					temp.put (cursor.item.string_value (j.as_natural_32), i, j)
+					j := j + 1
+				end
+				cursor.forth
+				i := i + 1
+			end
+			Result := temp
+		end
+	debug
+		end
 	end
 
 	print_array(array : ARRAY2[STRING]) : STRING
@@ -214,13 +203,4 @@ feature -- attributes
 	db : SQLITE_DATABASE
 	frozen name_db : STRING = "my_db"
 
-feature
-	update_reports(unit, head, start_date, end_date : STRING)
-	local
-		query : STRING
-	do
-		query := "INSERT INTO reports (nameOfUnit, nameOfHeadUnit, startOfRepPeriod, endOfRepPeriod) VALUES ("
-		query := query + unit + ", " + head + ", " + start_date + ", " + end_date + ");"
-		execute_insertion(query)
-	end
 end
