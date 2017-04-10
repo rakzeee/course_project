@@ -39,5 +39,4 @@ feature -- Router
 			router.handle ("/form", form, router.methods_post)
 			router.handle ("", fhdl, router.methods_GET)
 		end
-
 end

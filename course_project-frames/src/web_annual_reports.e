@@ -7,7 +7,7 @@ note
 
 class
 	WEB_ANNUAL_REPORTS
-	
+
 
 inherit
 	WSF_LAUNCHABLE_SERVICE
@@ -15,7 +15,7 @@ inherit
 			initialize
 		end
 	APPLICATION_LAUNCHER [WEB_ANNUAL_REPORTS_EXECUTION]
-	
+
 
 create
 	make_and_launch
@@ -29,6 +29,4 @@ feature {NONE} -- Initialization
 			set_service_option ("port", 8080)
 			set_service_option ("verbose", "no")
 		end
-
-
 end

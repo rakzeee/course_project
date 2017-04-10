@@ -1,22 +1,3 @@
-DROP TABLE "reports";
-DROP TABLE "courses_taught";
-DROP TABLE "examinations";
-DROP TABLE "students_supervised";
-DROP TABLE "comp_student_reports";
-DROP TABLE "comp_phd_theses";
-DROP TABLE "grants";
-DROP TABLE "research_projects";
-DROP TABLE "research_collaborations";
-DROP TABLE "conference_publications";
-DROP TABLE "journal_publications";
-DROP TABLE "patents";
-DROP TABLE "ip_licensing";
-DROP TABLE "best_paper_awards";
-DROP TABLE "memberships";
-DROP TABLE "prizes";
-DROP TABLE "industry_collaborations";
-DROP TABLE "other_info";
-
 CREATE TABLE "reports" (
 "id" INTEGER NOT NULL,
 "nameOfUnit" TEXT NOT NULL,
