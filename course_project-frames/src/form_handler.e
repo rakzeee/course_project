@@ -11,18 +11,35 @@ inherit
 
 feature
 
+	report: REPORT
+
 	execute(start_path: STRING; request: WSF_REQUEST; response: WSF_RESPONSE)
 		local
 			mesq: WSF_PAGE_RESPONSE
 			page: WSF_FILE_RESPONSE
+			report_id: INTEGER
 		do
 			create mesq.make
 			create page.make_html ("succes.html")
+			create report.make
 
 --			if attached {WSF_VALUE} request.form_parameter ("unitname") as unitname then
 --				mesq.put_string (unitname.string_representation)
 --				io.put_string(unitname.string_representation)
 --			end
+			report_id := report.current_report_id
+			save_reports (request)
+			save_courses_taught (request, report_id)
+			save_examinations (request, report_id)
+			save_students_supervised (request, report_id)
+			save_comp_student_reports (request, report_id)
+			save_comp_phd_theses (request, report_id)
+			save_grants (request, report_id)
+			save_research_projects (request, report_id)
+			save_research_collaborations (request, report_id)
+			save_conference_publications (request, report_id)
+			save_journal_publications (request, report_id)
+
 			mesq.put_string ("123")
 			response.send (mesq)
 		end
@@ -46,7 +63,7 @@ feature
 				if name_of_unit.is_empty or name_of_head.is_empty or start_date.is_empty or end_date.is_empty then
 					error("reports: empty field")
 				else
-					--update
+					report.add_report (name_of_unit, name_of_head, start_date, end_date)
 				end
 			else
 				error("reports: miss field")
@@ -80,7 +97,7 @@ feature
 					if name.is_empty or semester.is_empty or level.is_empty or num_of_students.is_empty then
 						error("courses_taught: empty field")
 					else
-						--update
+						report.add_course_taught (id, name, semester, level, num_of_students)
 					end
 				else
 					error("courses_taught: miss field")
@@ -115,7 +132,7 @@ feature
 					if name.is_empty or semester.is_empty or kind_of_exam.is_empty or num_of_students.is_empty then
 						error("examinations: empty field")
 					else
-						--update
+						report.add_examination (id, name, semester, kind_of_exam, num_of_students)
 					end
 				else
 					error("examinations: miss field")
@@ -144,7 +161,7 @@ feature
 					if student_name.is_empty or work.is_empty then
 						error("student_supervised: empty field")
 					else
-						--update
+						report.add_stud_supervised (id, student_name, work)
 					end
 				else
 					error("students_supervised: miss field")
@@ -176,7 +193,7 @@ feature
 					if student_name.is_empty or report_title.is_empty then
 						error("comp_student+reports: empty field")
 					else
-						-- update
+						report.add_completed_stud_report (id, student_name, report_title, publication_plan)
 					end
 				else
 					error("comp_student_reports: miss field")
@@ -217,7 +234,7 @@ feature
 					if student_name.is_empty or degree.is_empty or name_of_supervisor.is_empty or commitee_members.is_empty or degree_granting_inst.is_empty or title_of_dissertation.is_empty then
 						error("comp_phd_these: empty field")
 					else
-						-- update
+						report.add_completed_phd_these (id, student_name, degree, name_of_supervisor, commitee_members, degree_granting_inst, title_of_dissertation)
 					end
 
 				else
@@ -253,7 +270,7 @@ feature
 					if title_of_project.is_empty or granting_agency.is_empty or period.is_empty or amount.is_empty then
 						error("grants: empty field")
 					else
-						--update
+						report.add_grant (id, title_of_project, granting_agency, period, amount)
 					end
 				else
 					error("grants: miss field")
@@ -294,7 +311,7 @@ feature
 					if title.is_empty or ui_personal.is_empty or start_date.is_empty or end_date.is_empty or financing.is_empty then
 						error("research_projects: empty field")
 					else
-						-- update
+						report.add_research_project (id, title, ui_personal, external_personal, start_date, end_date, financing)
 					end
 				else
 					error("research_projects: miss field")
@@ -329,7 +346,7 @@ feature
 					if country.is_empty or institution_name.is_empty or contacts.is_empty or collaboration_nature.is_empty then
 						error("research_collaborations: empty field")
 					else
-						-- update
+						report.add_research_col (id, country, institution_name, contacts, collaboration_nature)
 					end
 				else
 					error("research_collaboration: miss field")
@@ -355,7 +372,7 @@ feature
 					if publication.is_empty then
 						error("conference_publication: empty field")
 					else
-						-- update
+						report.add_conference_publications (id, publication)
 					end
 				else
 					error("conference_publications: miss field")
@@ -381,7 +398,7 @@ feature
 					if publication.is_empty then
 						error("journal_publication: empty field")
 					else
-						-- update
+						report.add_journal_publications (id, publication)
 					end
 				else
 					error("journal_publications: miss field")
