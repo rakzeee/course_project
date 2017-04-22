@@ -82,7 +82,7 @@ feature --features for creating a full report
 	local
 		query : STRING
 	do
-		query := "INSERT INTO comp_phd_theses (report_id, studentName, degree, nameOfSupervisor, commiteeMembers, degreeGrantingInst, titleOfDissertation) VALUES (" + report_id.out
+		query := "INSERT INTO comp_phd_theses (report_id, studentName, degree, nameOfSupervisor, commiteeMembers, degreeGrantingInst) VALUES (" + report_id.out
 		query := query + ", %"" + stud_name + "%", %"" + deg + "%", %"" + name_of_sup + "%", %"" + com_members + "%", %""
 		query := query + dg_instit + "%", %"" + title_of_dis + "%");"
 		dbw.execute_insertion (query)
@@ -130,8 +130,8 @@ feature --features for creating a full report
 	local
 		query : STRING
 	do
-		query := "INSERT INTO conference_publications (report_id, publication) VALUES (" + report_id.out
-		query := query + ", %"" + publ + "%");"
+		query := "INSERT INTO conference_publications (report_id, publication) VALUES (" + report_id.out + ", %"" + publ + "%");"
+
 		dbw.execute_insertion (query)
 	end
 
@@ -141,9 +141,74 @@ feature --features for creating a full report
 	local
 		query : STRING
 	do
-		query := "INSERT INTO journal_publications (report_id, publication) VALUES (" + report_id.out
-		query := query + ", %"" + publ + "%");"
+		query := "INSERT INTO journal_publications (report_id, publication) VALUES (" + report_id.out + ", %"" + publ + "%");"
 		dbw.execute_insertion (query)
+	end
+
+	add_patent(report_id : INTEGER; patent, country : STRING)
+	require
+		report_id > 0 and patent /= Void and country /= Void
+	local
+		query : STRING
+	do
+		query := "INSTER INTO patents (report_id, patent, country) VALUES (" + report_id.out + ", %"" + patent + "%", %"" + country + "%");"
+	end
+
+	add_ip_licensing(report_id : INTEGER; license : STRING)
+	require
+		report_id > 0 and license /= Void
+	local
+		query : STRING
+	do
+		query := "INSERT INTO ip_licensing (report_id, license) VALUES (" + report_id.out + ", %"" + license + "%");"
+	end
+
+	add_best_paper_award(report_id : INTEGER; authors, article, awardingConOrJournal, award, date : STRING)
+	require
+		report_id > 0 and authors /= Void and article /= Void and awardingConOrJournal /= Void and award /= Void and date /= Void
+	local
+		query : STRING
+	do
+		query := "INSERT INTO best_paper_awards (report_id, authors, article, awardingConOrJournal, award, date) VALUES (" + report_id.out
+		query := query + ", %"" + authors + "%", %"" + article + "%", %"" + awardingConOrJournal + "%", %"" + award + "%", %"" + date + "%");"
+	end
+
+	add_membership(report_id : INTEGER; nameOfMember, date : STRING)
+	require
+		report_id > 0 and nameOfMember /= Void and date /= Void
+	local
+		query : STRING
+	do
+		query := "INSERT INTO memberships (report_id, nameOfMember, date) VALUES (" + report_id.out + ", %"" + nameOfMember + "%", %"" + date + "%");"
+	end
+
+	add_prize(report_id : INTEGER; recipient, nameOfPrize, grantingInst, date : STRING)
+	require
+		report_id >0 and recipient /= Void and nameOfPrize /= Void and grantingInst /= Void and date /= Void
+	local
+		query : STRING
+	do
+		query := "INSERT INTO prizes (report_id, recipient, nameOfPrize, grantingInst, date) VALUES (" + report_id.out + ", %"" + recipient
+		query := query + "%", %"" + recipient + "%", %"" + nameOfPrize + "%", %"" + grantingInst + "%", %"" + date + "%");"
+	end
+
+	add_ind_collaboration(report_id : INTEGER; company, nature : STRING)
+	require
+		report_id > 0 and company /= Void and nature /= Void
+	local
+		query : STRING
+	do
+		query := "INSERT INTO  industry_collaborations (report_id, company, nature_of_collaboration) VALUES (" + report_id.out + ", %"" + company
+		query := query + "%", %"" + nature + "%");"
+	end
+
+	add_other_info (report_id : INTEGER; otherInfo : STRING)
+	require
+		report_id >0 and otherInfo /= Void
+	local
+		query : STRING
+	do
+		query := "INSERT INTO other_info (report_id, otherInfo) VALUES (" + report_id.out + ", %"" + otherInfo + "%");"
 	end
 
 	current_report_id : INTEGER
@@ -161,6 +226,26 @@ feature --features for creating a full report
 	end
 
 feature -- mandatory queries of the web application
+
+	reports : QUERY_TABLE
+	local
+		query : STRING
+	do
+		Result.make_empty
+		Result.names.grow (5)
+		Result.names.put ("Number", 1)
+		Result.names.put ("Name Of unit", 2)
+		Result.names.put ("Name of head of unit", 3)
+		Result.names.put ("Start of reporting period", 4)
+		Result.names.put ("End of reporting period", 5)
+		query := "SELECT * FROM reports;"
+		if (not (dbw.execute_selection (query) = Void)) then
+			Result.set_data (dbw.execute_selection(query))
+		else
+			Result := Void
+		end
+	end
+
 	publications(year : INTEGER) : QUERY_TABLE
 	local
 		query : STRING
@@ -168,8 +253,7 @@ feature -- mandatory queries of the web application
 	do
 		create Result.make_empty
 		Result.names.grow (4)
-		--SResult.names.put ("Number", 1)
-		Result.names.put ("Name Of Unit", 1)
+		Result.names.put ("Name Of unit", 1)
 		Result.names.put ("Name of head of unit", 2)
 		Result.names.put ("Publication", 3)
 		Result.names.put ("Start of reporting period", 4)
@@ -199,8 +283,7 @@ feature -- mandatory queries of the web application
 	do
 		create Result.make_empty
 		Result.names.grow (6)
-		--Result.names.put ("Number", 1)
-		Result.names.put ("Name Of Unit", 1)
+		Result.names.put ("Name Of unit", 1)
 		Result.names.put ("Name of head of unit", 2)
 		Result.names.put ("Course", 3)
 		Result.names.put ("Semester", 4)
@@ -225,8 +308,7 @@ feature -- mandatory queries of the web application
 	do
 		create Result.make_empty
 		Result.names.grow (3)
-		--Result.names.put ("Number", 1)
-		Result.names.put ("Name Of Unit", 1)
+		Result.names.put ("Name Of unit", 1)
 		Result.names.put ("Student name", 2)
 		Result.names.put ("Work", 3)
 		create file.make_open_read ("students_supervised.sql")
@@ -247,12 +329,10 @@ feature -- mandatory queries of the web application
 	do
 		create Result.make_empty
 		Result.names.grow (3)
-		--Result.names.put ("Number", 1)
-		Result.names.put ("Name Of Unit", 1)
+		Result.names.put ("Name Of unit", 1)
 		Result.names.put ("Name of head of unit", 2)
 		Result.names.put ("Start of report period", 3)
 		query := "SELECT reports.nameOfUnit, reports.nameOfHeadUnit, reports.startOfRepPeriod from reports WHERE startOfRepPeriod <= %"" + (year+1).out + "-01-01%" AND endOfRepPeriod >= %""+ year.out +"-01-01%";"
-
 		if (not (dbw.execute_selection (query) = Void)) then
 			Result.set_data (dbw.execute_selection(query))
 		else
