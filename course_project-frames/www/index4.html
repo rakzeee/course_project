@@ -1,0 +1,54 @@
+﻿<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Innopolis University annual report</title>
+		<script type="text/javascript" src="js/dynamictable.js"></script>
+		<link href="css/Style.css" rel="stylesheet" type="text/css"/>
+		<link href="css/Style2.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<div id="page" name="4">
+			<div class = "head">
+				<h1>Section 4: Technology transfer part.</h1>
+				<p>This section covers patents, licenses and other technology transfer activities.</p>
+			</div>
+			<div class="forms">
+				<div>
+					<h2>Patents</h2>
+					<p>List patents filed or otherwise submitted during the reported period. Indicate country of patent office.</p>
+					<table id="patentTable">
+						<tr>
+							<th>Patent</th>
+							<th>Country</th>
+						</tr>
+						<tr>
+							<td><input class="toForm" type="text" name="patent:0" required="true" form="formSubmit"></td>
+							<td><input class="toForm" type="text" name="country:0" required="true" form="formSubmit"></td>
+						</tr>
+					</table>
+				</div>
+				<div class="buttons">
+					<input type="button" onclick="addRow('patentTable')" value="Add field"/>
+					<input type="button" onclick="deleteRow('patentTable')" value="Delete field"/>
+				</div>
+				<div>
+					<h2>IP licensing (software or others)</h2>
+					<p>List licenses granted.</p>
+					<table id="licenseTable">
+						<tr>
+							<th>License</th>
+						</tr>
+						<tr>
+							<td><input class="toForm" type="text" name="license[0]" required></td>
+						</tr>
+					</table>
+				</div>
+				<div class="buttons">
+					<input type="button" onclick="addRow('licenseTable')" value="Add field"/>
+					<input type="button" onclick="deleteRow('licenseTable')" value="Delete field"/>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

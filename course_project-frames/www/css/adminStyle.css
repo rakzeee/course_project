@@ -1,0 +1,14 @@
+.qTable{
+	width: 100%;
+	border-spacing:	5px;
+	background-color: #D3D3D3;
+	padding-right: 15px;
+	padding-left: 10px;
+	border-radius: 5px;
+}
+
+td{
+	border-spacing:	5px;
+	background-color: white;
+	text-align: center; 
+}

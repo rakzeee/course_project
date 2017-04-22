@@ -82,7 +82,7 @@ feature --features for creating a full report
 	local
 		query : STRING
 	do
-		query := "INSERT INTO comp_phd_theses (report_id, studentName, degree, nameOfSupervisor, commiteeMembers, degreeGrantingInst) VALUES (" + report_id.out
+		query := "INSERT INTO comp_phd_theses (report_id, studentName, degree, nameOfSupervisor, commiteeMembers, degreeGrantingInst, titleOfDissertation) VALUES (" + report_id.out
 		query := query + ", %"" + stud_name + "%", %"" + deg + "%", %"" + name_of_sup + "%", %"" + com_members + "%", %""
 		query := query + dg_instit + "%", %"" + title_of_dis + "%");"
 		dbw.execute_insertion (query)
@@ -168,7 +168,7 @@ feature -- mandatory queries of the web application
 	do
 		create Result.make_empty
 		Result.names.grow (4)
-		Result.names.put ("Number", 1)
+		--SResult.names.put ("Number", 1)
 		Result.names.put ("Name Of Unit", 1)
 		Result.names.put ("Name of head of unit", 2)
 		Result.names.put ("Publication", 3)
@@ -199,7 +199,7 @@ feature -- mandatory queries of the web application
 	do
 		create Result.make_empty
 		Result.names.grow (6)
-		Result.names.put ("Number", 1)
+		--Result.names.put ("Number", 1)
 		Result.names.put ("Name Of Unit", 1)
 		Result.names.put ("Name of head of unit", 2)
 		Result.names.put ("Course", 3)
@@ -224,11 +224,11 @@ feature -- mandatory queries of the web application
 		file : PLAIN_TEXT_FILE
 	do
 		create Result.make_empty
-		Result.names.grow (4)
-		Result.names.put ("Number", 1)
-		Result.names.put ("Name Of Unit", 2)
-		Result.names.put ("Student name", 3)
-		Result.names.put ("Work", 4)
+		Result.names.grow (3)
+		--Result.names.put ("Number", 1)
+		Result.names.put ("Name Of Unit", 1)
+		Result.names.put ("Student name", 2)
+		Result.names.put ("Work", 3)
 		create file.make_open_read ("students_supervised.sql")
 		file.read_stream (file.count)
 		query := file.last_string
@@ -246,12 +246,13 @@ feature -- mandatory queries of the web application
 		file : PLAIN_TEXT_FILE
 	do
 		create Result.make_empty
-		Result.names.grow (4)
-		Result.names.put ("Number", 1)
-		Result.names.put ("Name Of Unit", 2)
-		Result.names.put ("Name of head of unit", 3)
-		Result.names.put ("Start of report period", 4)
-		query := "[SELECT reports.nameOfUnit, reports.nameOfHeadUnit, reports.startOfRepPeriod from reports WHERE startOfRepPeriod <= %"" + (year+1).out + "-01-01%" AND endOfRepPeriod >= %""+ year.out +"-01-01%";"
+		Result.names.grow (3)
+		--Result.names.put ("Number", 1)
+		Result.names.put ("Name Of Unit", 1)
+		Result.names.put ("Name of head of unit", 2)
+		Result.names.put ("Start of report period", 3)
+		query := "SELECT reports.nameOfUnit, reports.nameOfHeadUnit, reports.startOfRepPeriod from reports WHERE startOfRepPeriod <= %"" + (year+1).out + "-01-01%" AND endOfRepPeriod >= %""+ year.out +"-01-01%";"
+
 		if (not (dbw.execute_selection (query) = Void)) then
 			Result.set_data (dbw.execute_selection(query))
 		else

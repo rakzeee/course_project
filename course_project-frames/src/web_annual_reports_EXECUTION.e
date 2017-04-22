@@ -32,11 +32,18 @@ feature -- Router
 		local
 			fhdl: WSF_FILE_SYSTEM_HANDLER
 			form: FORM_HANDLER
+			admin: ADMINISTRATION
 		do
 			create fhdl.make_hidden ("www")
 			create form
+			create admin
 			fhdl.set_directory_index (<<"index.html">>)
 			router.handle ("/form", form, router.methods_post)
+			router.handle ("/administrator", admin, router.methods_get_post)
+			router.handle ("/publications", admin, router.methods_get_post)
+			router.handle ("/courses_taught", admin, router.methods_get_post)
+			router.handle ("/students_supervised", admin, router.methods_get_post)
+			router.handle ("/submitted_reports", admin, router.methods_get_post)
 			router.handle ("", fhdl, router.methods_GET)
 		end
 end

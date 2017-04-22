@@ -11,7 +11,6 @@ function onClick() {
 		
 		console.log(page);
 		if(page==endPage) {
-			alert(page);
 			console.log("submit");
 			document.getElementById('formSubmit').submit(); 
 		}

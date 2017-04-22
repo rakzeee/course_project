@@ -19,14 +19,17 @@ feature
 			page: WSF_FILE_RESPONSE
 			report_id: INTEGER
 		do
+			print(start_path + "%N")
 			create mesq.make
-			create page.make_html ("succes.html")
+			create page.make_html ("www/succes.html")
 			create report.make
 
---			if attached {WSF_VALUE} request.form_parameter ("unitname") as unitname then
---				mesq.put_string (unitname.string_representation)
---				io.put_string(unitname.string_representation)
+--			across
+--				request.form_parameters as list
+--			loop
+--				print(list.item.name + " " + list.item.string_representation + "%N")
 --			end
+
 			report_id := report.current_report_id
 			save_reports (request)
 			save_courses_taught (request, report_id)
@@ -40,8 +43,7 @@ feature
 			save_conference_publications (request, report_id)
 			save_journal_publications (request, report_id)
 
-			mesq.put_string ("123")
-			response.send (mesq)
+			response.send (page)
 		end
 
 	save_reports(r: WSF_REQUEST)
@@ -64,6 +66,7 @@ feature
 					error("reports: empty field")
 				else
 					report.add_report (name_of_unit, name_of_head, start_date, end_date)
+--					print("reports: added" + "%N")
 				end
 			else
 				error("reports: miss field")
@@ -83,12 +86,12 @@ feature
 			from
 				i := 0
 			until
-				not attached r.form_parameter ("nameCourses[" + i.out + "]")
+				not attached r.form_parameter ("nameCourses:" + i.out)
 			loop
-				if attached r.form_parameter ("nameCourses[" + i.out + "]") as a
-						and attached r.form_parameter ("semesterCourses[" + i.out + "]") as b
-						and attached r.form_parameter ("levelCourses[" + i.out + "]") as c
-						and attached r.form_parameter ("numberCourses[" + i.out + "]") as d then
+				if attached r.form_parameter ("nameCourses:" + i.out) as a
+						and attached r.form_parameter ("semesterCourses:" + i.out) as b
+						and attached r.form_parameter ("levelCourses:" + i.out) as c
+						and attached r.form_parameter ("numberCourses:" + i.out) as d then
 					name := a.string_representation
 					semester := b.string_representation
 					level := c.string_representation
@@ -98,10 +101,12 @@ feature
 						error("courses_taught: empty field")
 					else
 						report.add_course_taught (id, name, semester, level, num_of_students)
+--						print("courses_taught: added" + "%N")
 					end
 				else
 					error("courses_taught: miss field")
 				end
+				i := i + 1
 			end
 		end
 
@@ -118,12 +123,12 @@ feature
 			from
 				i := 0
 			until
-				not attached r.form_parameter ("nameExamination[" + i.out + "]")
+				not attached r.form_parameter ("nameExamination:" + i.out)
 			loop
-				if attached r.form_parameter ("nameExamination[" + i.out + "]") as a
-						and attached r.form_parameter ("semesterExamination[" + i.out + "]") as b
-						and attached r.form_parameter ("examExamination[" + i.out + "]") as c
-						and attached r.form_parameter ("numberExamination[" + i.out + "]") as d then
+				if attached r.form_parameter ("nameExamination:" + i.out) as a
+						and attached r.form_parameter ("semesterExamination:" + i.out) as b
+						and attached r.form_parameter ("examExamination:" + i.out) as c
+						and attached r.form_parameter ("numberExamination:" + i.out) as d then
 					name := a.string_representation
 					semester := b.string_representation
 					kind_of_exam := c.string_representation
@@ -133,10 +138,12 @@ feature
 						error("examinations: empty field")
 					else
 						report.add_examination (id, name, semester, kind_of_exam, num_of_students)
+--						print("examinations: added %N")
 					end
 				else
 					error("examinations: miss field")
 				end
+				i := i + 1
 			end
 		end
 
@@ -151,10 +158,10 @@ feature
 			from
 				i := 0
 			until
-				not attached r.form_parameter ("studentNameSW[" + i.out + "]")
+				not attached r.form_parameter ("studentNameSW:" + i.out)
 			loop
-				if attached r.form_parameter ("studentNameSW[" + i.out + "]") as a
-						and attached r.form_parameter ("workSW[" + i.out + "]") as b then
+				if attached r.form_parameter ("studentNameSW:" + i.out) as a
+						and attached r.form_parameter ("workSW:" + i.out) as b then
 					student_name := a.string_representation
 					work := b.string_representation
 
@@ -162,10 +169,12 @@ feature
 						error("student_supervised: empty field")
 					else
 						report.add_stud_supervised (id, student_name, work)
+--						print("student_supervised: added %N")
 					end
 				else
 					error("students_supervised: miss field")
 				end
+				i := i + 1
 			end
 		end
 
@@ -181,23 +190,25 @@ feature
 			from
 				i := 0
 			until
-				not attached r.form_parameter ("studentNameSR[" + i.out + "]")
+				not attached r.form_parameter ("studentNameSR:" + i.out)
 			loop
-				if attached r.form_parameter ("studentNameSR[" + i.out + "]") as a
-						and attached r.form_parameter ("titleSR[" + i.out + "]") as b
-						and attached r.form_parameter ("planSR[" + i.out + "]") as c then
+				if attached r.form_parameter ("studentNameSR:" + i.out) as a
+						and attached r.form_parameter ("titleSR:" + i.out) as b
+						and attached r.form_parameter ("planSR:" + i.out) as c then
 					student_name := a.string_representation
 					report_title := b.string_representation
 					publication_plan := c.string_representation
 
 					if student_name.is_empty or report_title.is_empty then
-						error("comp_student+reports: empty field")
+						error("comp_student_reports: empty field")
 					else
 						report.add_completed_stud_report (id, student_name, report_title, publication_plan)
+--						print("comp_student_reports: added %N")
 					end
 				else
 					error("comp_student_reports: miss field")
 				end
+				i := i + 1
 			end
 		end
 
@@ -216,14 +227,14 @@ feature
 			from
 				i := 0
 			until
-				not attached r.form_parameter ("studentNamePHD[" + i.out + "]")
+				not attached r.form_parameter ("studentNamePHD:" + i.out)
 			loop
-				if attached r.form_parameter ("studentNamePHD[" + i.out + "]") as a
-						and attached r.form_parameter ("degreePHD[" + i.out + "]") as b
-						and attached r.form_parameter ("supervisorNamePHD[" + i.out + "]") as c
-						and attached r.form_parameter ("committeeMembersPHD[" + i.out + "]") as d
-						and attached r.form_parameter ("institutiuonPHD[" + i.out + "]") as e
-						and attached r.form_parameter ("titlePHD[" + i.out + "]") as f then
+				if attached r.form_parameter ("studentNamePHD:" + i.out) as a
+						and attached r.form_parameter ("degreePHD:" + i.out) as b
+						and attached r.form_parameter ("supervisorNamePHD:" + i.out) as c
+						and attached r.form_parameter ("committeeMembersPHD:" + i.out) as d
+						and attached r.form_parameter ("institutiuonPHD:" + i.out) as e
+						and attached r.form_parameter ("titlePHD:" + i.out) as f then
 					student_name := a.string_representation
 					degree := b.string_representation
 					name_of_supervisor := c.string_representation
@@ -235,11 +246,12 @@ feature
 						error("comp_phd_these: empty field")
 					else
 						report.add_completed_phd_these (id, student_name, degree, name_of_supervisor, commitee_members, degree_granting_inst, title_of_dissertation)
+--						print("comp_phd_these: added %N")
 					end
-
 				else
 					error("comp_phd_theses: miss field")
 				end
+				i := i + 1
 			end
 		end
 
@@ -256,12 +268,12 @@ feature
 			from
 				i := 0
 			until
-				not attached r.form_parameter ("titleGrants[" + i.out + "]")
+				not attached r.form_parameter ("titleGrants:" + i.out)
 			loop
-				if attached r.form_parameter ("titleGrants[" + i.out + "]") as a
-						and attached r.form_parameter ("grantingAgencyGrants[" + i.out + "]") as b
-						and attached r.form_parameter ("periodGrants[" + i.out + "]") as c
-						and attached r.form_parameter ("amountGrants[" + i.out + "]") as d then
+				if attached r.form_parameter ("titleGrants:" + i.out) as a
+						and attached r.form_parameter ("grantingAgencyGrants:" + i.out) as b
+						and attached r.form_parameter ("periodGrants:" + i.out) as c
+						and attached r.form_parameter ("amountGrants:" + i.out) as d then
 					title_of_project := a.string_representation
 					granting_agency := b.string_representation
 					period := c.string_representation
@@ -271,10 +283,12 @@ feature
 						error("grants: empty field")
 					else
 						report.add_grant (id, title_of_project, granting_agency, period, amount)
+--						print("grants: added %N")
 					end
 				else
 					error("grants: miss field")
 				end
+				i := i + 1
 			end
 		end
 
@@ -293,14 +307,14 @@ feature
 			from
 				i := 0
 			until
-				not attached r.form_parameter ("titleRP[" + i.out + "]")
+				not attached r.form_parameter ("titleRP:" + i.out)
 			loop
-				if attached  r.form_parameter ("titleRP[" + i.out + "]") as a
-						and attached r.form_parameter ("universityPersonnelRP[" + i.out + "]") as b
-						and attached r.form_parameter ("externalPersonnelRP[" + i.out + "]") as c
-						and attached r.form_parameter ("startDateRP[" + i.out + "]") as d
-						and attached r.form_parameter ("endDateRP[" + i.out + "]") as e
-						and attached r.form_parameter ("financingRP[" + i.out + "]") as f then
+				if attached  r.form_parameter ("titleRP:" + i.out) as a
+						and attached r.form_parameter ("universityPersonnelRP:" + i.out) as b
+						and attached r.form_parameter ("externalPersonnelRP:" + i.out) as c
+						and attached r.form_parameter ("startDateRP:" + i.out) as d
+						and attached r.form_parameter ("endDateRP:" + i.out) as e
+						and attached r.form_parameter ("financingRP:" + i.out) as f then
 					title := a.string_representation
 					ui_personal := b.string_representation
 					external_personal := c.string_representation
@@ -312,10 +326,12 @@ feature
 						error("research_projects: empty field")
 					else
 						report.add_research_project (id, title, ui_personal, external_personal, start_date, end_date, financing)
+--						print("research_projects: added %N")
 					end
 				else
 					error("research_projects: miss field")
 				end
+				i := i + 1
 			end
 		end
 
@@ -332,12 +348,12 @@ feature
 			from
 				i := 0
 			until
-				not attached r.form_parameter ("countryRC[" + i.out + "]")
+				not attached r.form_parameter ("countryRC:" + i.out)
 			loop
-				if attached r.form_parameter ("countryRC[" + i.out + "]") as a
-						and attached r.form_parameter ("institutionNameRC[" + i.out + "]") as b
-						and attached r.form_parameter ("contactsRC[" + i.out + "]") as c
-						and attached r.form_parameter ("collaborationNatureRC[" + i.out + "]") as d then
+				if attached r.form_parameter ("countryRC:" + i.out) as a
+						and attached r.form_parameter ("institutionNameRC:" + i.out) as b
+						and attached r.form_parameter ("contactsRC:" + i.out) as c
+						and attached r.form_parameter ("collaborationNatureRC:" + i.out) as d then
 					country	:= a.string_representation
 					institution_name := b.string_representation
 					contacts := c.string_representation
@@ -347,10 +363,12 @@ feature
 						error("research_collaborations: empty field")
 					else
 						report.add_research_col (id, country, institution_name, contacts, collaboration_nature)
+--						print("research_collaboration: added %N")
 					end
 				else
 					error("research_collaboration: miss field")
 				end
+				i := i + 1
 			end
 		end
 
@@ -364,19 +382,21 @@ feature
 			from
 				i := 0
 			until
-				not attached r.form_parameter ("conferencePublication[" + i.out + "]")
+				not attached r.form_parameter ("conferencePublication:" + i.out)
 			loop
-				if attached r.form_parameter ("conferencePublication[" + i.out + "]") as a then
+				if attached r.form_parameter ("conferencePublication:" + i.out) as a then
 					publication := a.string_representation
 
 					if publication.is_empty then
 						error("conference_publication: empty field")
 					else
 						report.add_conference_publications (id, publication)
+--						print("conference_publication: added %N")
 					end
 				else
 					error("conference_publications: miss field")
 				end
+				i := i + 1
 			end
 		end
 
@@ -390,19 +410,21 @@ feature
 			from
 				i := 0
 			until
-				not attached r.form_parameter ("journalPublication[" + i.out + "]")
+				not attached r.form_parameter ("journalPublication:" + i.out)
 			loop
-				if attached r.form_parameter ("journalPublication[" + i.out + "]") as a then
+				if attached r.form_parameter ("journalPublication:" + i.out) as a then
 					publication := a.string_representation
 
 					if publication.is_empty then
 						error("journal_publication: empty field")
 					else
 						report.add_journal_publications (id, publication)
+--						print("journal_publication: added %N")
 					end
 				else
 					error("journal_publications: miss field")
 				end
+				i := i + 1
 			end
 		end
 

@@ -12,7 +12,6 @@ create
 feature	--initialization
 	db_open
 	do
-		print("sada")
 		create db.make_open_read_write (name_db)
 	end
 
@@ -60,7 +59,7 @@ feature --main features
 		cursor := db_query_statement.execute_new
 		cursor.start
 		Result := Void
-		if cursor.item.is_null (1) then
+		if cursor.after then
 
 		else
 			from
@@ -104,7 +103,7 @@ feature --main features
 		cursor := db_query_statement.execute_new
 		cursor.start
 		Result := Void
-		if cursor.item.is_null (1) then
+		if cursor.after then
 
 		else
 			from
@@ -148,7 +147,7 @@ feature --main features
 		cursor := db_query_statement.execute_new
 		cursor.start
 		Result := Void
-		if cursor.item.is_null (1) then
+		if cursor.after then
 
 		else
 			from

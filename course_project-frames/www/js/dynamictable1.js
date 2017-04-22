@@ -12,8 +12,8 @@ function addRow(id) {
 	    row.appendChild(td1);
 	    row.appendChild(td2);
 	    
-	    td1.innerHTML = '<input type="text" name="company['+rowCount+']" required>';
-	    td2.innerHTML = '<input type="text" name="collaboration['+rowCount+']" required>';
+	    td1.innerHTML = '<input type="text" name="company:'+rowCount+'" required>';
+	    td2.innerHTML = '<input type="text" name="collaboration:'+rowCount+'" required>';
 	}
 	else if (id == 'prizesTable') {
 		var td1 = d.createElement("td");
@@ -26,10 +26,10 @@ function addRow(id) {
 		row.appendChild(td3);
 		row.appendChild(td4);
 			    
-	    td1.innerHTML = '<input type="text" name="recipient['+rowCount+']" required>';
-	    td2.innerHTML = '<input type="text" name="prize['+rowCount+']" required>';
-	    td3.innerHTML = '<input type="text" name="institution['+rowCount+']" required>';
-	    td4.innerHTML = '<input type="date" name="date['+rowCount+']" required>';
+	    td1.innerHTML = '<input type="text" name="recipient:'+rowCount+'" required>';
+	    td2.innerHTML = '<input type="text" name="prize:'+rowCount+'" required>';
+	    td3.innerHTML = '<input type="text" name="institution:'+rowCount+'" required>';
+	    td4.innerHTML = '<input type="date" name="date:'+rowCount+'" required>';
 	}
 	else if (id == 'paperAwardsTable') {
 	    var td1 = d.createElement("td");
@@ -44,11 +44,11 @@ function addRow(id) {
 		row.appendChild(td4);
 		row.appendChild(td5);
 			    
-	    td1.innerHTML = '<input type="text" name="authors['+rowCount+']" required>';
-	    td2.innerHTML = '<input type="text" name="article['+rowCount+']" required>';
-	    td3.innerHTML = '<input type="text" name="awarding['+rowCount+']" required>';
-	    td4.innerHTML = '<input type="text" name="award['+rowCount+']" required>';
-	    td5.innerHTML = '<input type="date" name="date['+rowCount+']" required>';
+	    td1.innerHTML = '<input type="text" name="authors:'+rowCount+'" required>';
+	    td2.innerHTML = '<input type="text" name="article:'+rowCount+'" required>';
+	    td3.innerHTML = '<input type="text" name="awarding:'+rowCount+'" required>';
+	    td4.innerHTML = '<input type="text" name="award:'+rowCount+'" required>';
+	    td5.innerHTML = '<input type="date" name="date:'+rowCount+'" required>';
 	}
 	else if (id == 'membershipsTable') {
 		var td1 = d.createElement("td");
@@ -57,8 +57,8 @@ function addRow(id) {
 	    row.appendChild(td1);
 	    row.appendChild(td2);
 	    
-	    td1.innerHTML = '<input type="text" name="member['+rowCount+']" required>';
-	    td2.innerHTML = '<input type="date" name="date['+rowCount+']" required>';
+	    td1.innerHTML = '<input type="text" name="member:'+rowCount+'" required>';
+	    td2.innerHTML = '<input type="date" name="date:'+rowCount+'" required>';
 	}
 	else if (id == 'patentTable') {
 	    var td1 = d.createElement("td");
@@ -67,13 +67,13 @@ function addRow(id) {
 	    row.appendChild(td1);
 	    row.appendChild(td2);
 	    
-	    td1.innerHTML = '<input type="text" name="patent['+rowCount+']" required>';
-	    td2.innerHTML = '<input type="text" name="country['+rowCount+']" required>';
+	    td1.innerHTML = '<input class="toForm" type="text" name="patent:'+rowCount+'" required="true" form="formSubmit"';
+	    td2.innerHTML = '<input class="toForm" type="text" name="country:'+rowCount+'" required="true" form="formSubmit"';
 	}
 	else {
 		var td1 = d.createElement("td");
 	    row.appendChild(td1);
-	    td1.innerHTML = '<input type="text" name="license['+rowCount+']" required>';
+	    td1.innerHTML = '<input type="text" name="license:'+rowCount+'" required>';
 	}
 }
 
