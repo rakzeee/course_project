@@ -1,0 +1,85 @@
+﻿<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Innopolis University annual report</title>
+		<script type="text/javascript" src="js/dynamictable.js"></script>
+		<script type="text/javascript" src="js/frames.js"></script>
+		<link href="css/Style.css" rel="stylesheet" type="text/css"/>
+		<link href="css/Style2.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body onload="load()">
+		<div id="page" name="5">
+			<div class = "head">
+				<h1>Section 5: distinctions part</h1>
+				<p>This section covers honors received by the unit's members.</p>
+			</div>
+			<div class="forms">
+				<div>
+					<h2>Best paper awards</h2>
+					<p>For each item, indicate authors of the awarded article, title of the article, awarding conference or journal, exact wording of award, date</p>
+					<table id="paperAwardsTable">
+						<tr>
+							<th>Authors</th>
+							<th>Article</th>
+							<th>Awarding conference or journal</th>
+							<th>Award</th>
+							<th>Date</th>
+						</tr>
+						<tr>
+							<td><input class="toForm" type="text" name="authorsPAT:0" required="true" form="formSubmit"></td>
+							<td><input class="toForm" type="text" name="articlePAT:0" required="true" form="formSubmit"></td>
+							<td><input class="toForm" type="text" name="awardingPAT:0" required="true" form="formSubmit"></td>
+							<td><input class="toForm" type="text" name="awardPAT:0" required="true" form="formSubmit"></td>
+							<td><input class="toForm" type="date" name="datePAT:0" required="true" form="formSubmit"></td>
+						</tr>
+					</table>
+				</div>
+				<div class="buttons">
+					<input type="button" onclick="addRow('paperAwardsTable')" value="Add field"/>
+					<input type="button" onclick="deleteRow('paperAwardsTable')" value="Delete field"/>
+				</div>
+				<div>
+					<h2>Memberships</h2>
+					<p>Membership in academies, international working groups (for example IFIP or ACM), standards committees (e.g. ISO, Ecma) etc. For each item, indicate name of member, date of membership.</p>
+					<table id="membershipsTable">
+						<tr>
+							<th>Name of member</th>
+							<th>Date</th>
+						</tr>
+						<tr>
+							<td><input class="toForm" type="text" name="memberMST:0" required="true" form="formSubmit"></td>
+							<td><input class="toForm" type="date" name="dateMST:0" required="true" form="formSubmit"></td>
+						</tr>
+					</table>
+				</div>
+				<div class="buttons">
+					<input type="button" onclick="addRow('membershipsTable')" value="Add field"/>
+					<input type="button" onclick="deleteRow('membershipsTable')" value="Delete field"/>
+				</div>
+				<div>
+					<h2>Prizes</h2>
+					<p>List prizes received during reporting period. For each item, indicate recipient, name of prize, granting institution, date.</p>
+					<table id="prizesTable">
+						<tr>
+							<th>Recipient</th>
+							<th>Name of prize</th>
+							<th>granting institution</th>
+							<th>Date</th>
+						</tr>
+						<tr>
+							<td><input class="toForm" type="text" name="recipientPrizeT:0" required="true" form="formSubmit"></td>
+							<td><input class="toForm" type="text" name="prizePrizeT:0" required="true" form="formSubmit"></td>
+							<td><input class="toForm" type="text" name="institutionPrizeT:0" required="true" form="formSubmit"></td>
+							<td><input class="toForm" type="date" name="datePrizeT:0" required="true" form="formSubmit"></td>
+						</tr>
+					</table>
+				</div>
+				<div class="buttons">
+					<input type="button" onclick="addRow('prizesTable')" value="Add field"/>
+					<input type="button" onclick="deleteRow('prizesTable')" value="Delete field"/>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

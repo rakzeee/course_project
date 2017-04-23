@@ -4,10 +4,11 @@
 		<meta charset="utf-8">
 		<title>Innopolis University annual report</title>
 		<script type="text/javascript" src="js/dynamictable.js"></script>
+		<script type="text/javascript" src="js/frames.js"></script>
 		<link href="css/Style.css" rel="stylesheet" type="text/css"/>
 		<link href="css/Style2.css" rel="stylesheet" type="text/css"/>
 	</head>
-	<body>
+	<body onload="load()">
 		<div id="page" name="4">
 			<div class = "head">
 				<h1>Section 4: Technology transfer part.</h1>
@@ -23,8 +24,8 @@
 							<th>Country</th>
 						</tr>
 						<tr>
-							<td><input class="toForm" type="text" name="patent:0" required="true" form="formSubmit"></td>
-							<td><input class="toForm" type="text" name="country:0" required="true" form="formSubmit"></td>
+							<td><input class="toForm" type="text" name="patentPT:0" required="true" form="formSubmit"></td>
+							<td><input class="toForm" type="text" name="countryPT:0" required="true" form="formSubmit"></td>
 						</tr>
 					</table>
 				</div>
@@ -40,7 +41,7 @@
 							<th>License</th>
 						</tr>
 						<tr>
-							<td><input class="toForm" type="text" name="license[0]" required></td>
+							<td><input class="toForm" type="text" name="licenseLT:0" required="true" form="formSubmit"></td>
 						</tr>
 					</table>
 				</div>

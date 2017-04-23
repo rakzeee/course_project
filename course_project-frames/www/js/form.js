@@ -1,5 +1,5 @@
 ﻿var savedPages = 0;
-var endPage = 3;
+var endPage = 6;
 
 function onClick() {
 	
@@ -14,8 +14,9 @@ function onClick() {
 			console.log("submit");
 			document.getElementById('formSubmit').submit(); 
 		}
-		else 
+		else {
 			transfer ("index"+(page+1)+".html");
+		}
 	}
 	else {
 		alert('Enter all required fields');
@@ -64,6 +65,19 @@ function noEmptyField(doc) {
 
 function transfer(link) {
 	document.getElementById('frame').setAttribute('src', link);
+	window.scrollTo(0,0)
+}
+
+function changeH() {
+	var curPage = document.getElementById("frame");
+	var curFrame = document.getElementsByTagName('iframe')[0];
+	var scrollHeight = Math.max(
+		curFrame.contentWindow.document.body.scrollHeight, curFrame.contentWindow.document.documentElement.scrollHeight,
+		curFrame.contentWindow.document.body.offsetHeight, curFrame.contentWindow.document.documentElement.offsetHeight,
+		curFrame.contentWindow.document.body.clientHeight, curFrame.contentWindow.document.documentElement.clientHeight
+	);
+	console.log(scrollHeight);
+	curPage.style.height = scrollHeight + "px";
 }
 
 function getPage(doc) {

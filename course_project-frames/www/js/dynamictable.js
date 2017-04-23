@@ -1,7 +1,5 @@
 var d = document;
-function addRow(id) {
-	$('iframe').load(function(){$(this).height($(this).contents().find('html').height());});
-	
+function addRow(id) {	
     var tbody = d.getElementById(id);
     var rowCount = tbody.rows.length - 1;
     var row = d.createElement("tr");
@@ -135,8 +133,7 @@ function addRow(id) {
 		td3.innerHTML = '<select class="toForm" name="examExamination:'+rowCount+'" required="true" form="formSubmit"><option>Final exam</option><option>Repetition exam</option></select>'
 		td4.innerHTML = '<input class="toForm" type="number" name="numberExamination:'+rowCount+'" required="true" form="formSubmit">'
 	}
-	
-	$('iframe').load(function(){$(this).height($(this).contents().find('html').height());});
+	changeHeight()
 }
 
 function deleteRow(id) {	
@@ -148,4 +145,18 @@ function deleteRow(id) {
 			if(rowCount > k) {
 				table.deleteRow(rowCount-1);
 			}
+	
+	changeHeight()
+}
+
+function changeHeight() {
+	var curPage = window.parent.document.getElementById("frame");
+	var curFrame = window.parent.document.getElementsByTagName('iframe')[0];
+	var scrollHeight = Math.max(
+//		curFrame.contentWindow.document.body.scrollHeight, curFrame.contentWindow.document.documentElement.scrollHeight
+		curFrame.contentWindow.document.body.offsetHeight, curFrame.contentWindow.document.documentElement.offsetHeight
+//		curFrame.contentWindow.document.body.clientHeight, curFrame.contentWindow.document.documentElement.clientHeight
+	);
+	console.log(scrollHeight);
+	curPage.style.height = scrollHeight + "px";
 }

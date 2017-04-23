@@ -2,25 +2,18 @@
 <html>
 	<head>
 		<script type="text/javascript" src="js/form.js"></script>
-		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 		<title>Innopolis University annual report</title>
 		<link href="css/Style.css" rel="stylesheet" type="text/css"/>
 		<link href="css/Style2.css" rel="stylesheet" type="text/css"/>
 	</head>
 	<body id="mainpage" onload="onLoad()">
 		<div id="form">
-			<iframe  id="frame" allowtransparency width="100%" height="10000" src ="index1.html" seamless scrolling="no" frameborder="0"></iframe><br> 
+			<iframe  id="frame" allowtransparency width="100%" src ="index1.html" seamless scrolling="no" frameborder="0"></iframe><br> 
 		</div>
 		<input class="continue" id="next" type="button" onclick="onClick()" value="NEXT">
 		
 		<form action="/form" id="formSubmit" hidden="true" method="post">
 			<div id="container"></div>
 		</form>
-		<script type="text/javascript">
-		jQuery(function($) { 
-		console.log("jq");
-			$('iframe').load(function(){$(this).height($(this).contents().find('html').height());});
-		});
-</script>
 	</body>
 </html>
