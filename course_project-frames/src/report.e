@@ -302,11 +302,11 @@ feature -- mandatory queries of the web application
 	local
 		query : STRING
 	do
-		query := "SELECT nameOfUnit FROM reports;"
+		query := "SELECT id, nameOfUnit FROM reports;"
 		Result := dbw.execute_selection (query)
 	end
 
-	common_info (unit : STRING) : ARRAYED_LIST[QUERY_TABLE]
+	common_info (id : STRING) : ARRAYED_LIST[QUERY_TABLE]
 	require
 		unit /= Void
 	local
@@ -316,9 +316,7 @@ feature -- mandatory queries of the web application
 		rep_id : STRING
 	do
 		create Result.make (0)
-		query := "SELECT id FROM reports WHERE nameOfUnit = %"" + unit + "%";"
-		res := dbw.execute_selection (query)
-		rep_id := res.item (1, 1)
+		rep_id := id
 
 		create a.make_empty
 		a.set_header ("Common info about given unit and its report:%N")
