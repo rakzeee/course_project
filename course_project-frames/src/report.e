@@ -274,6 +274,11 @@ feature -- mandatory queries of the web application
 		end
 	end
 
+	common_info (unit : STRING) : ARRAY[ARRAY]
+	do
+		
+	end
+
 	courses_taught(start_date, end_date : STRING) : QUERY_TABLE
 	require
 		start_date /= Void and end_date /= Void and end_date.is_greater (start_date)
