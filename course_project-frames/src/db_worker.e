@@ -83,6 +83,18 @@ feature --main features
 		end
 	end
 
+	execute_deletion(query : STRING)
+	require
+		not_empty: query /= Void
+		open: not db.is_closed
+	local
+		db_query_statement : SQLITE_QUERY_STATEMENT
+		cursor : SQLITE_STATEMENT_ITERATION_CURSOR
+	do
+		create db_query_statement.make (query, db)
+		cursor := db_query_statement.execute_new
+	end
+
 	execute_selection_full_table(table : STRING): ARRAY2[STRING]
 	require
 		table_exists: table /= Void
