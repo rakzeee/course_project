@@ -44,6 +44,10 @@ feature -- Router
 			router.handle ("/courses_taught", admin, router.methods_get_post)
 			router.handle ("/students_supervised", admin, router.methods_get_post)
 			router.handle ("/submitted_reports", admin, router.methods_get_post)
+			router.handle ("/common_info", admin, router.methods_get_post)
+			router.handle ("/all_submitted_reports", admin, router.methods_get_post)
+			router.handle ("/research_collaborations", admin, router.methods_get_post)
+			router.handle ("/erase_report", admin, router.methods_get_post)
 			router.handle ("", fhdl, router.methods_GET)
 		end
 end

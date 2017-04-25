@@ -233,7 +233,7 @@ feature --features for creating a full report
 		t_info : ARRAY2[STRING]
 	do
 		create Result.make_empty
-		t_info := dbw.execute_selection ("pragma table_info(" + table + ");")
+		t_info := dbw.execute_selection_names ("pragma table_info(" + table + ");")
 		j := 1
 		from
 			i := n
@@ -253,7 +253,7 @@ feature -- mandatory queries of the web application
 	local
 		query : STRING
 	do
-		Result.make_empty
+		create Result.make_empty
 		Result.set_header ("All submitted reports")
 		Result.names.grow (5)
 		Result.names.put ("Number", 1)
@@ -308,7 +308,7 @@ feature -- mandatory queries of the web application
 
 	common_info (id : STRING) : ARRAYED_LIST[QUERY_TABLE]
 	require
-		unit /= Void
+		valid_id: id/=Void
 	local
 		a : QUERY_TABLE
 		res : ARRAY2[STRING]
@@ -321,7 +321,7 @@ feature -- mandatory queries of the web application
 		create a.make_empty
 		a.set_header ("Common info about given unit and its report:%N")
 		a.set_names (table_fields("reports", 2))
-		query := "SELECT nameOfUnit, nameOfHeadUnit, startOfRepPeriod, endOfRepPeriod FROM reports WHERE report_id = " + rep_id + ";"
+		query := "SELECT nameOfUnit, nameOfHeadUnit, startOfRepPeriod, endOfRepPeriod FROM reports WHERE id = " + rep_id + ";"
 		res := dbw.execute_selection (query)
 		if (res /= Void) then
 			a.set_data (res)
@@ -498,6 +498,10 @@ feature -- mandatory queries of the web application
 			a.set_data (res)
 			Result.force (a)
 		end
+
+		if (Result.is_empty) then
+			Result := Void
+		end
 	end
 
 	courses_taught(start_date, end_date : STRING) : QUERY_TABLE
@@ -516,6 +520,7 @@ feature -- mandatory queries of the web application
 		Result.names.put ("Semester", 4)
 		Result.names.put ("level", 5)
 		Result.names.put ("Approximate number of students", 6)
+
 		create file.make_open_read ("courses_taught.sql")
 		file.read_stream (file.count)
 		query := file.last_string
@@ -535,7 +540,10 @@ feature -- mandatory queries of the web application
 		i, j : INTEGER
 	do
 		j := 1
-		Result.make_empty
+		create Result.make_empty
+		Result.set_header ("Number of students supervised by laboratories")
+		create names.make_empty
+		create table.make_filled ("", 1, 1)
 		names.force ("Unit name", 1)
 		names.force ("Number of supervised students", 2)
 		Result.set_names (names)
@@ -549,13 +557,20 @@ feature -- mandatory queries of the web application
 				table.force (temp.item (1, 1), j, 1)
 				temp := dbw.execute_selection ("SELECT COUNT(*) FROM students_supervised WHERE report_id = "+  i.out + ";")
 				table.force (temp.item (1, 1), j, 2)
-				i := i + 1
 				j := j + 1
 			end
-			table.force ("Total", i, 1)
-			temp := dbw.execute_selection ("SELECT COUNT(*) FROM students_supervised;")
-			table.force (temp.item (1, 1), i, 2)
+			i := i + 1
 		end
+		table.force ("Total", j, 1)
+		temp := dbw.execute_selection ("SELECT COUNT(*) FROM students_supervised;")
+		table.force (temp.item (1, 1), j, 2)
+
+		if (table.item (1, 1) = "") then
+			Result := Void
+		else
+			Result.set_data (table)
+		end
+
 	end
 
 	research_collaborations : QUERY_TABLE
@@ -566,7 +581,10 @@ feature -- mandatory queries of the web application
 		i, j : INTEGER
 	do
 		j := 1
-		Result.make_empty
+		create Result.make_empty
+		Result.set_header ("Number of research collaborations by laboratories")
+		create names.make_empty
+		create table.make_filled ("", 1, 1)
 		names.force ("Unit name", 1)
 		names.force ("Number of research collaborations", 2)
 		Result.set_names (names)
@@ -580,12 +598,18 @@ feature -- mandatory queries of the web application
 				table.force (temp.item (1, 1), j, 1)
 				temp := dbw.execute_selection ("SELECT COUNT(*) FROM research_collaborations WHERE report_id = "+  i.out + ";")
 				table.force (temp.item (1, 1), j, 2)
-				i := i + 1
 				j := j + 1
 			end
-			table.force ("Total", i, 1)
-			temp := dbw.execute_selection ("SELECT COUNT(*) FROM research collaborations;")
-			table.force (temp.item (1, 1), i, 2)
+			i := i + 1
+		end
+		table.force ("Total", j, 1)
+		temp := dbw.execute_selection ("SELECT COUNT(*) FROM research_collaborations;")
+		table.force (temp.item (1, 1), j, 2)
+
+		if (table.item (1, 1) = "") then
+			Result := Void
+		else
+			Result.set_data (table)
 		end
 	end
 
@@ -607,16 +631,15 @@ feature -- mandatory queries of the web application
 		end
 	end
 
-	delete_report(name_of_unit : STRING)
+	delete_report(id : STRING)
 	require
-		name_of_unit /= Void
+		id /= Void
 	local
 		temp : ARRAY2[STRING]
 		report_id : STRING
 	do
-		temp := dbw.execute_selection ("SELECT id FROM reports WHERE nameOfUnit = %"" + name_of_unit + "%";")
-		report_id := temp.item (1, 1)
-		dbw.execute_deletion ("DELETE FROM reports WHERE report_id = " + report_id + ";")
+		report_id := id
+		dbw.execute_deletion ("DELETE FROM reports WHERE id = " + report_id + ";")
 		dbw.execute_deletion ("DELETE FROM courses_taught WHERE report_id = " + report_id + ";")
 		dbw.execute_deletion ("DELETE FROM examinations WHERE report_id = " + report_id + ";")
 		dbw.execute_deletion ("DELETE FROM students_supervised WHERE report_id = " + report_id + ";")

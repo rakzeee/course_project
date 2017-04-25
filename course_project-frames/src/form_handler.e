@@ -42,6 +42,13 @@ feature
 			save_research_collaborations (request, report_id)
 			save_conference_publications (request, report_id)
 			save_journal_publications (request, report_id)
+			save_patents (request, report_id)
+			save_ip_licensing (request, report_id)
+			save_best_paper_awards (request, report_id)
+			save_members (request, report_id)
+			save_prizes (request, report_id)
+			save_industry_collaborations (request, report_id)
+			save_other_relevant_information (request, report_id)
 
 			response.send (page)
 		end
@@ -325,6 +332,9 @@ feature
 					if title.is_empty or ui_personal.is_empty or start_date.is_empty or end_date.is_empty or financing.is_empty then
 						error("research_projects: empty field")
 					else
+						if external_personal.is_empty then
+							external_personal := "-"
+						end
 						report.add_research_project (id, title, ui_personal, external_personal, start_date, end_date, financing)
 --						print("research_projects: added %N")
 					end
@@ -428,8 +438,224 @@ feature
 			end
 		end
 
+	save_patents(r: WSF_REQUEST; id: INTEGER)
+		require
+			valid_id: id>=0
+		local
+			patent: STRING
+			country: STRING
+			i: INTEGER
+		do
+			from
+				i := 0
+			until
+				not attached r.form_parameter ("patentPT:" + i.out)
+			loop
+				if attached r.form_parameter ("patentPT:" + i.out) as a
+						and attached r.form_parameter ("countryPT:" + i.out) as b then
+					patent := a.string_representation
+					country := b.string_representation
+
+					if patent.is_empty or country.is_empty then
+						error("patents: empty field")
+					else
+						report.add_patent (id, patent, country)
+--						print("patents: added %N")
+					end
+				else
+					error("pattent: miss field")
+				end
+				i := i + 1
+			end
+		end
+
+	save_ip_licensing(r: WSF_REQUEST; id: INTEGER)
+		require
+			valid_id: id >= 0
+		local
+			license: STRING
+			i: INTEGER
+		do
+			from
+				i := 0
+			until
+				not attached r.form_parameter ("licenseLT:" + i.out)
+			loop
+				if attached r.form_parameter ("licenseLT:" + i.out) as a then
+					license := a.string_representation
+
+					if license.is_empty then
+						error("ip_licensing: empty field")
+					else
+						report.add_ip_licensing (id, license)
+--						print("ip_licensing: added %N")
+					end
+				else
+					error("ip_licensing: miss field")
+				end
+				i := i + 1
+			end
+		end
+
+	save_best_paper_awards(r: WSF_REQUEST; id: INTEGER)
+		require
+			valid_id: id>=0
+		local
+			authors: STRING
+			article: STRING
+			conference: STRING
+			award: STRING
+			date: STRING
+			i: INTEGER
+		do
+			from
+				i := 0
+			until
+				not attached r.form_parameter ("authorsPAT:" + i.out)
+			loop
+				if attached r.form_parameter ("authorsPAT:" + i.out) as a
+						and attached r.form_parameter ("articlePAT:" + i.out) as b
+						and attached r.form_parameter ("awardingPAT:" + i.out) as c
+						and attached r.form_parameter ("awardPAT:" + i.out) as d
+						and attached r.form_parameter ("datePAT:" + i.out) as e then
+					authors := a.string_representation
+					article := b.string_representation
+					conference := c.string_representation
+					award := d.string_representation
+					date := e.string_representation
+
+					if authors.is_empty or article.is_empty or conference.is_empty or award.is_empty or date.is_empty then
+						error("best_paper_awards: empty field")
+					else
+						report.add_best_paper_award (id, authors, article, conference, award, date)
+--						print("best_paper_awards: added %N")
+					end
+				else
+					error("best_paper_awards: miss field")
+				end
+				i := i + 1
+			end
+		end
+
+	save_members(r: WSF_REQUEST; id: INTEGER)
+		require
+			valid_id: id >= 0
+		local
+			name: STRING
+			date: STRING
+			i: INTEGER
+		do
+			from
+				i := 0
+			until
+				not attached r.form_parameter ("memberMST:" + i.out)
+			loop
+				if attached r.form_parameter ("memberMST:" + i.out) as a
+						and attached r.form_parameter ("dateMST:" + i.out) as b then
+					name := a.string_representation
+					date := b.string_representation
+
+					if name.is_empty or date.is_empty then
+						error("memberships: empty field")
+					else
+						report.add_membership (id, name, date)
+--						print("memberships: added %N")
+					end
+				else
+					error("memberships: miss field")
+				end
+				i := i + 1
+			end
+		end
+
+	save_prizes(r: WSF_REQUEST; id: INTEGER)
+		require
+			valid_id: id >= 0
+		local
+			recipient: STRING
+			name: STRING
+			institution: STRING
+			date: STRING
+			i: INTEGER
+		do
+			from
+				i := 0
+			until
+				not attached r.form_parameter ("recipientPrizeT:" + i.out)
+			loop
+				if attached r.form_parameter ("recipientPrizeT:" + i.out) as a
+						and attached r.form_parameter ("prizePrizeT:" + i.out) as b
+						and attached r.form_parameter ("institutionPrizeT:" + i.out) as c
+						and attached r.form_parameter ("datePrizeT:" + i.out) as d then
+					recipient := a.string_representation
+					name := b.string_representation
+					institution := c.string_representation
+					date := d.string_representation
+
+					if recipient.is_empty or name.is_empty or institution.is_empty or date.is_empty then
+						error ("prizes: empty field")
+					else
+						report.add_prize (id, recipient, name, institution, date)
+--						print("prizes: added %N")
+					end
+				else
+					error ("prizes: miss field")
+				end
+				i := i + 1
+			end
+		end
+
+	save_industry_collaborations(r: WSF_REQUEST; id: INTEGER)
+		require
+			valid_id: id >= 0
+		local
+			company: STRING
+			collaboration: STRING
+			i: INTEGER
+		do
+			from
+				i := 0
+			until
+				not attached r.form_parameter ("companyICT:" + i.out)
+			loop
+				if attached r.form_parameter ("companyICT:" + i.out) as a
+						and attached r.form_parameter ("collaborationICT:" + i.out) as b then
+					company := a.string_representation
+					collaboration := b.string_representation
+
+					if company.is_empty or collaboration.is_empty then
+						error("industry_collaborations: empty field")
+					else
+						report.add_ind_collaboration (id, company, collaboration)
+--						print("industry_collaborations: added %N")
+					end
+				else
+					error("industry_collaborations: miss field")
+				end
+				i := i + 1
+			end
+		end
+
+	save_other_relevant_information(r: WSF_REQUEST; id: INTEGER)
+		require
+			valid_id: id >= 0
+		local
+			info: STRING
+		do
+			if attached r.form_parameter ("informationS7") as a then
+				info := a.string_representation
+				if info.is_empty then
+					info := "-"
+				end
+
+				report.add_other_info (id, info)
+			else
+				error ("other_relevant_information: miss field")
+			end
+		end
+
 	error(e: STRING)
 		do
-			print(e)
+			print(e + "%N")
 		end
 end

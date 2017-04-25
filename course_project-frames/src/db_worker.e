@@ -83,6 +83,48 @@ feature --main features
 		end
 	end
 
+	execute_selection_names(query : STRING) : ARRAY2[STRING]
+	require
+		not_empty: query /= Void
+		open: not db.is_closed
+	local
+		db_query_statement : SQLITE_QUERY_STATEMENT
+		cursor : SQLITE_STATEMENT_ITERATION_CURSOR
+		i, j : INTEGER
+		temp : ARRAY2[STRING]
+		j1 : NATURAL_32
+		s : STRING
+
+	do
+		create db_query_statement.make (query, db)
+		create temp.make_filled ("", 1, 1)
+		cursor := db_query_statement.execute_new
+		cursor.start
+		Result := Void
+		if cursor.after then
+
+		else
+			from
+				i := 1
+			until
+				cursor.after
+			loop
+				from
+					j := 1
+				until
+					j > 2
+				loop
+					temp.resize_with_default ("", i,j)
+					temp.put (cursor.item.string_value (j.as_natural_32), i, j)
+					j := j + 1
+				end
+				cursor.forth
+				i := i + 1
+			end
+			Result := temp
+		end
+	end
+
 	execute_deletion(query : STRING)
 	require
 		not_empty: query /= Void

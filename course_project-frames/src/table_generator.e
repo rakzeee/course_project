@@ -14,6 +14,7 @@ feature
 
 	table: ARRAY2[STRING]
 	names: ARRAY[STRING]
+	header: STRING
 
 	make(q_table: QUERY_TABLE)
 		require
@@ -21,15 +22,21 @@ feature
 		do
 			table := q_table.data
 			names := q_table.names
+			header := q_table.header
 		end
 
 feature
 	generate: STRING
+		require
+			not_void_table: table /= Void
+			not_void_names: names /= Void
+			not_void_header: header /= Void
 		local
 			i: INTEGER
 			j: INTEGER
 		do
-			Result := "<table class=%"qTable%"><tr>"
+			Result := "<h1>"+header+"</h1>"
+			Result := Result + "<table class=%"qTable%"><tr>"
 			from
 				i := 1
 			until

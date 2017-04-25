@@ -4,15 +4,15 @@
 		<title>Innopolis University annual report</title>
 		<script type="text/javascript" src="js/managePanel.js"></script>
 	</head>
-	<body>
+	<body onload="selectQuery()">
 		<h1>Select query:</h1>
-		<select id="query" required="true">
+		<select id="query" required="true" onchange="selectQuery()">
 			<option>Publications from given year</option>
 			<option>Courses taught between period</option>
 			<option>Students supervised</option>
-			<option>Submitted reports</option>
+			<option>Submitted reports from given year</option>
+			<option>Common info of a unit</option>
 		</select>
-		<input type="button" value="select" onclick="selectQuery()">
 		
 		<div id="forInput">
 		</div>

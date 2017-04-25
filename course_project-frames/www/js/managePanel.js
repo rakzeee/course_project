@@ -20,23 +20,61 @@
 		removeChilds('forInput');
 		document.getElementById("forInput").appendChild(formP);
 	}
-	else if (query === 'Students supervised') {
+	else if (query === 'Number of students supervised') {
 		var formP = document.createElement("form");
 		
 		formP.setAttribute('action', '/students_supervised');
 		formP.setAttribute('method', 'post');
 		
-		formP.innerHTML = '<input type="submit">'
+		formP.innerHTML = '<input type="submit">';
 		removeChilds('forInput');
 		document.getElementById("forInput").appendChild(formP);
 	}
-	else if (query === 'Submitted reports') {
+	else if (query === 'Submitted reports from given year') {
 		var formP = document.createElement("form");
 		
 		formP.setAttribute('action', '/submitted_reports');
 		formP.setAttribute('method', 'post');
 		
-		formP.innerHTML = '<input type="number" name="year" required="true"><input type="submit">'
+		formP.innerHTML = '<input type="number" name="year" required="true"><input type="submit">';
+		removeChilds('forInput');
+		document.getElementById("forInput").appendChild(formP);
+	}
+	else if (query === 'Common info of a unit') {
+		var formP = document.createElement("form");
+		formP.setAttribute('action', '/common_info');
+		formP.setAttribute('method', 'post');
+		
+		formP.innerHTML = document.getElementById('unitsListBlock').innerHTML + '<input type="submit">';
+		removeChilds('forInput');
+		document.getElementById("forInput").appendChild(formP);
+	}
+	else if (query === 'All submitted reports') {
+		var formP = document.createElement("form");
+		
+		formP.setAttribute('action', '/all_submitted_reports');
+		formP.setAttribute('method', 'post');
+		
+		formP.innerHTML = '<input type="submit">';
+		removeChilds('forInput');
+		document.getElementById("forInput").appendChild(formP);
+	}
+	else if (query === 'Number of research collaboration') {
+		var formP = document.createElement("form");
+		
+		formP.setAttribute('action', '/research_collaboration');
+		formP.setAttribute('method', 'post');
+		
+		formP.innerHTML = '<input type="submit">';
+		removeChilds('forInput');
+		document.getElementById("forInput").appendChild(formP);
+	}
+	else if (query === 'Erase all information about the unit report') {
+		var formP = document.createElement("form");
+		formP.setAttribute('action', '/erase_report');
+		formP.setAttribute('method', 'post');
+		alert ("123");
+		formP.innerHTML = document.getElementById('unitsListBlock').innerHTML + '<input type="submit">';
 		removeChilds('forInput');
 		document.getElementById("forInput").appendChild(formP);
 	}
